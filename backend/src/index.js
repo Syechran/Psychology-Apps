@@ -1,43 +1,22 @@
-// 1. Import library yang dibutuhkan
+// backend/src/index.js
+
 const express = require("express");
 const cors = require("cors");
-const axios = require("axios"); // Kita akan gunakan ini nanti
+// 1. Panggil file rute yang sudah kita buat
+const chatRoutes = require("./api/chat");
 
-// 2. Inisialisasi aplikasi express
 const app = express();
-const port = 3000; // Pilih port, 3000 adalah standar
+// Gunakan port dari environment variable jika ada, atau 3000 jika tidak ada
+const port = process.env.PORT || 3000;
 
-// 3. Gunakan middleware
-app.use(cors()); // Mengizinkan akses dari frontend
-app.use(express.json()); // Agar server bisa membaca data JSON yang dikirim frontend
+app.use(cors());
+app.use(express.json()); // Middleware untuk membaca body JSON
 
-// 4. Buat endpoint /chat (sesuai kontrak)
-app.post("/chat", async (req, res) => {
-  // Ambil pesan dari frontend
-  const userMessage = req.body.message;
-  console.log("Pesan diterima dari frontend:", userMessage);
+// 2. Gunakan rutenya
+// Beritahu Express: "Untuk setiap permintaan yang alamatnya diawali dengan '/api',
+// tolong gunakan aturan yang ada di dalam 'chatRoutes'."
+app.use("/api", chatRoutes);
 
-  // --- LOGIKA INTEGRASI AI (z.ai) AKAN DITARUH DI SINI ---
-
-  // Untuk sekarang, kita kirim balasan dummy dulu
-  const aiReply = "Ini adalah balasan dummy dari server.";
-  res.json({ reply: aiReply });
-});
-
-// 5. Buat endpoint /summary (sesuai kontrak)
-app.post("/summary", async (req, res) => {
-  // Ambil riwayat chat dari frontend
-  const chatHistory = req.body.history;
-  console.log("Riwayat chat diterima, jumlah pesan:", chatHistory.length);
-
-  // --- LOGIKA INTEGRASI AI UNTUK SUMMARY AKAN DI SINI ---
-
-  // Untuk sekarang, kita kirim summary dummy
-  const aiSummary = "Ini adalah ringkasan dummy dari server.";
-  res.json({ summary: aiSummary });
-});
-
-// 6. Jalankan server
 app.listen(port, () => {
   console.log(`Server backend berjalan di http://localhost:${port}`);
 });
