@@ -154,7 +154,7 @@ const getAISummary = async (history) => {
     const url =
       "https://krsbeknjypkg.sg-members-1.clawcloudrun.com/proxy/gemini/v1beta/openai/chat/completions";
     const fullText = history.join("\n");
-    const prompt = `Ringkaslah percakapan berikut menjadi poin-poin utama yang mudah dipahami oleh seorang psikolog. Fokus pada keluhan utama, perasaan yang diekspresikan, dan potensi pemicu masalah. Gunakan bahasa Indonesia yang formal dan terstruktur:\n\n---\n\n${fullText}`;
+    const prompt = `Ringkaslah percakapan berikut menjadi poin-poin utama yang mudah dipahami oleh seorang psikolog. Fokus pada keluhan utama, perasaan yang diekspresikan, dan potensi pemicu masalah. Pertimbangkan juga content jurnal yang telah diisi pengguna untuk mengetahui informasi tambahan untuk konteks lebih dalam, karakter pengguna, progress pemulihan mental pengguna, dan keseharian pengguna. Gunakan bahasa Indonesia yang formal dan terstruktur:\n\n---\n\n${fullText}`;
 
     const data = {
       model: "gemini-2.5-pro",

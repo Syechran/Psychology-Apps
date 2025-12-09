@@ -2,6 +2,7 @@
 
 const aiService = require("../services/aiService");
 const PDFDocument = require("pdfkit");
+const db = require("./config/firebase");
 
 // --- Fungsi untuk Handle Chat (Tetap sama, tidak berubah) ---
 const handleChat = async (req, res) => {
@@ -21,18 +22,32 @@ const handleChat = async (req, res) => {
 // --- Fungsi untuk Handle Summary (KEMBALIKAN KE VERSI ASLI) ---
 const handleSummary = async (req, res) => {
   try {
-    // 1. AKTIFKAN KEMBALI pengambilan data dari body permintaan
-    const chatHistory = req.body.history;
+    const chatHistory = req.body.history || []; // Ensure chatHistory is an array
 
-    // 2. HAPUS data history yang di-hardcode (sudah tidak diperlukan lagi)
+    // Fetch all journals
+    const journalsRef = db.collection("journals");
+    const snapshot = await journalsRef.orderBy("created_at", "desc").get();
+    const journalEntries = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      journalEntries.push(`--- JOURNAL ENTRY ---\nTitle: ${data.title}\nContent: ${data.content}\n--- END JOURNAL ENTRY ---`);
+    });
 
-    // 3. AKTIFKAN KEMBALI validasi untuk data yang datang dari frontend
-    if (!chatHistory || chatHistory.length === 0) {
-      return res.status(400).json({ error: "Riwayat chat tidak boleh kosong" });
+    // Combine chat history and journal entries
+    const combinedHistory = [
+      "--- START CHAT HISTORY ---",
+      ...chatHistory,
+      "--- END CHAT HISTORY ---",
+      "--- START JOURNAL ENTRIES ---",
+      ...journalEntries,
+      "--- END JOURNAL ENTRIES ---",
+    ];
+
+    if (combinedHistory.length === 0) {
+      return res.status(400).json({ error: "Riwayat chat dan jurnal tidak boleh kosong" });
     }
 
-    // Sisa kode di bawah ini tetap sama persis
-    const summaryText = await aiService.getAISummary(chatHistory);
+    const summaryText = await aiService.getAISummary(combinedHistory);
 
     const doc = new PDFDocument();
     res.setHeader("Content-Type", "application/pdf");
