@@ -70,12 +70,6 @@ Ditenagai oleh **Google Gemini 2.5 Flash**, Flanella menawarkan percakapan cerda
   - `cors`: Middleware untuk mengaktifkan Cross-Origin Resource Sharing pada server Express.
   - `axios`: Klien HTTP berbasis Promise untuk melakukan permintaan ke layanan eksternal jika diperlukan.
 
-## 📸 Tangkapan Layar
-
-| Halaman Utama | Halaman Obrolan | Halaman Jurnal |
-|:---:|:---:|:---:|
-| <img src="flutter_app/Current-_homepage.png" width="200"> | <img src="flutter_app/Chat-History Page.png" width="200"> | <img src="flutter_app/Current-_journal-page.png" width="200"> |
-
 ## 🚀 Cara Memulai
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda.
@@ -152,3 +146,4 @@ Psychology-Apps-main/
 │
 └── readme.MD               # Dokumentasi Proyek
 ```
+
