@@ -101,9 +101,10 @@ class _HomePageState extends State<HomePage> {
                               shape: BoxShape.circle,
                               border: Border.all(color: const Color(0xFFFFFFFF), width: 3),
                             ),
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: 30,
-                              backgroundImage: AssetImage('assets/images/foto_profile_example.jpg'),
+                              backgroundColor: Colors.white,
+                              child: const Icon(Icons.person, size: 40, color: Colors.grey),
                             ),
                           ),
                           const SizedBox(width: 16),
