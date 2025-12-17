@@ -1,0 +1,12 @@
+# Dependencies
+/node_modules
+
+# Environment variables
+.env
+
+.idea/
+.vscode/
+build/
+android/.gradle
+ios/.symlinks
+ios/Pods
