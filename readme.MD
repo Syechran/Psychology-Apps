@@ -122,6 +122,35 @@ Jalankan aplikasi (pastikan emulator atau perangkat fisik sudah terhubung):
 flutter run
 ```
 
+### 3. Build & Run APK (Untuk HP Android Fisik)
+
+Karena backend berjalan di komputer lokal (localhost), APK di HP Android tidak bisa mengakses `localhost` komputer secara langsung.
+
+1.  **Cari IPV4 Address Komputer**:
+    - Buka terminal/cmd, ketik `ipconfig` (Windows) atau `ifconfig` (Mac/Linux).
+    - Catat IP Address (contoh: `192.168.1.10`).
+
+2.  **Konfigurasi Aplikasi Flutter**:
+    - Buka `flutter_app/lib/config.dart`.
+    - Ubah bagian `Platform.isAndroid` menjadi IP komputer kamu:
+      ```dart
+      } else if (Platform.isAndroid) {
+        // Ganti dengan IP laptop kamu
+        return 'http://192.168.1.10:3000/api'; 
+      }
+      ```
+
+3.  **Build APK**:
+    - Masuk ke folder flutter: `cd flutter_app`
+    - Jalankan: `flutter build apk --release`
+    - File APK ada di: `build/app/outputs/flutter-apk/app-release.apk`
+
+4.  **Cara Menggunakan**:
+    - Instal APK di HP Android.
+    - **PENTING**: HP dan Laptop **HARUS** terhubung ke jaringan **WiFi yang sama**.
+    - Pastikan backend Node.js sedang berjalan di laptop (`npm start`).
+    - Buka aplikasi di HP, coba fitur Login/Chat untuk memverifikasi koneksi.
+
 ## 📂 Struktur Proyek
 
 ```
