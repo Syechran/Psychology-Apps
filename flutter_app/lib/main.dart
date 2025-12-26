@@ -1,6 +1,5 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'main_page.dart'; // Import file baru tadi
+import 'main_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF7D9C4)),
         useMaterial3: true,
       ),
-      home: const MainPage(), // Ganti HomePage dengan MainPage
+      home: const MainPage(),
     );
   }
-}
+} 
